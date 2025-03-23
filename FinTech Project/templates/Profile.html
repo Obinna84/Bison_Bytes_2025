@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kendrick Lamar - SoundShare</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <div id="header-container">
+            <h1 class="title">
+                <a href="Home.html">SoundShare</a>
+            </h1>
+            <img id="logo" src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="SoundShare Logo">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Profile.html">Profile</a></li>
+                <li><a href="Marketplace.html">Marketplace</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+        <form action="/search_results" method="get">
+            <input class="search" type="text" name="query" placeholder="Search">
+        </form>
+        <img id="profile" src="/static/default-profile.png" alt="User Profile">
+    </header>
+    
+    <div id="header-container">
+            <div class="float-child">
+               <div class="post" onclick="showPopup('Kendrick Lamar')"><img id="profile" src="static/Bruno Mars.jpg" alt="Bruno Mars">Bruno Mars</div>
+                    <div class="post" onclick="showPopup('Earl Sweatshirt', '$ABC', '850', '0', '0')"><img id="profile" src="static/Earl Sweatshirt.jpg" alt="Earl Sweatshirt">Earl Sweatshirt</div>
+                    <div class="post" onclick="showPopup('MIKE', '$DEF', '720', '3', '1')"><img id="profile" src="static/MIKE.jpg" alt="MIKE">MIKE</div>
+            <h1 class="title">Kendrick Lamar</h1>
+        </div>
+            <div class="float-child">
+
+                <div class="artist-info">
+                    <p><strong>Genre:</strong> Rap</p>
+                    <p><strong>Bio:</strong> Kendrick Lamar Duckworth (born June 17, 1987) is an American rapper. Regarded as one of the greatest rappers of all time.</p>
+                    <p><strong>Average Share Value:</strong> $560</p>
+                    <p><strong>Shares Available:</strong> 1,000</p>
+                    <p><strong>Top 100 Songs:</strong> HUMBLE., DNA., Alright, Money Trees, Swimming Pools (Drank)</p>
+                    <p><strong>Top 200 Albums:</strong> good kid, m.A.A.d city, To Pimp a Butterfly, DAMN., Mr. Morale & the Big Steppers</p>
+                </div>
+            </div>
+        <div class="float-child">
+        <!-- Form for posting a new song -->
+            <h2 class="title">Post a New Song</h2>
+            <form id="postSongForm">
+                <div class="form-group">
+                    <label for="title">Username:</label>
+                    <input class="search-form-group" type="text" id="username" name="username" required />
+                </div>
+            <label for="title">Song Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="total_shares">Total Shares:</label>
+            <input type="number" id="total_shares" name="total_shares" required><br><br>
+
+            <label for="price_per_share">Price Per Share:</label>
+            <input type="number" step="0.01" id="price_per_share" name="price_per_share" required><br><br>
+
+            <button type="submit">Post Song</button>
+        </form>
+
+        <!-- Display success/error messages -->
+        <div id="message"></div>
+
+        <!-- Display list of songs with available shares -->
+        <h2>Available Songs</h2>
+        <div id="songsList">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Song Title</th>
+                        <th>Available Shares</th>
+                        <th>Price Per Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HUMBLE.</td>
+                        <td>200</td>
+                        <td>$10.00</td>
+                    </tr>
+                    <tr>
+                        <td>DNA.</td>
+                        <td>150</td>
+                        <td>$12.50</td>
+                    </tr>
+                    <tr>
+                        <td>Alright</td>
+                        <td>100</td>
+                        <td>$15.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        // Handle form submission
+        
+        document.getElementById('postSongForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const data = {
+                title: document.getElementById('title').value,
+                total_shares: document.getElementById('total_shares').value,
+                price_per_share: document.getElementById('price_per_share').value
+            };
+
+            // Simulate a POST request to the backend
+            setTimeout(() => {
+                const messageDiv = document.getElementById('message');
+                messageDiv.innerHTML = `<p style="color: green;">Song posted successfully!</p>`;
+
+                // Add the new song to the table
+                const songsList = document.querySelector('#songsList tbody');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${data.title}</td>
+                    <td>${data.total_shares}</td>
+                    <td>$${parseFloat(data.price_per_share).toFixed(2)}</td>
+                `;
+                songsList.appendChild(newRow);
+
+                // Clear the form
+                document.getElementById('postSongForm').reset();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

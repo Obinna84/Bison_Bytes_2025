@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SoundShare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    
+    
+</head>
+
+<body>
+    <header>
+        <div id="header-container">
+            <h1 class="title">
+                <a href="Home.html">SoundShare</a>
+            </h1>
+            <img id='logo'src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Profile.html">Profile</a></li>
+                <li><a href="Marketplace.html">Marketplace</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+        <form action="/search_results" method="post">
+            <input class="search" type="text" name="query" placeholder="Search">
+        </form>
+        <img id="profile" src={{pfp}} alt="User Profile">
+    </header>
+
+    <main>
+        <section class="artist-info-top-tracks" style="margin-top: 100px;">
+            <div class="artist-info" style="float: left; width: 50%;">
+            <h4>{{ artist_name }}</h4>
+            {% if artist_image_url %}
+            <img src="{{ artist_image_url }}" alt="{{ artist_name }}" class="artist-main-img">
+            {% else %}
+            <p>No artist image available.</p>
+            {% endif %}
+            </div>
+
+            <div class="top-tracks" style="float: right; width: 50%;">
+            <h4>Top Tracks</h4>
+            <ul style="list-style-type: none; padding: 0;">
+            {% for track in top_tracks %}
+            <li><span style="color: white;">{{ track }}</span></li>
+            {% endfor %}
+            </ul>
+            </div>
+        </section>
+        <div style="clear: both;"></div>
+
+        <section class="recommended-artists">
+            <h3>Recommended Artists</h3>
+            <ul id="image_container">
+            {% for artist, artist_image in recommended_artists_data %}
+                <li>
+                <img src="{{ artist_image }}" alt="{{ artist }}" class="recommended-img">
+                <span>{{ artist }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+        </section>        
+    </main>
+</body>
+
+</html>

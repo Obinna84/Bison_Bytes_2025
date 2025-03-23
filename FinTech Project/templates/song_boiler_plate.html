@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>SoundShare</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Corrected the path to the CSS file from templates to static -->
+        <link rel="stylesheet" href="../static/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Major+Mono+Display&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            function showPopup(artistName, shareValue, availableShares, top100, top200) {
+                const popup = document.getElementById('popup');
+                const popupContent = document.getElementById('popup-content');
+                popupContent.innerHTML = `
+                    <div class="artist-info">
+                        <div class="image-wrapper" style="position: relative;">
+                            <img src="static/${artistName}.jpg" alt="${artistName}" 
+                                style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px;">
+                            <a href="/artist/${artistName}" class="invisible-button" 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></a>
+                        </div>
+                        <div>
+                            <h3>${artistName}</h3>
+                            <p>Share Value: ${shareValue}</p>
+                            <p>Shares Available: ${availableShares}</p>
+                        </div>
+                    </div>
+                    <h3>Total Shares:</h3>
+                    <p>${top100} Top 100 Song(s) / ${top200} Top 100 Album(s)</p>
+                    <div class="buttons">
+                        <button>See Charts</button>
+                        <button>See Community</button>
+                    </div>`;
+    
+                popup.style.display = 'block';
+            }
+    
+    
+            function closePopup() {
+                document.getElementById('popup').style.display = 'none';
+            }
+        </script>
+        <style>
+            #popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                border: 2px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+            #popup button {
+                margin-top: 10px;
+                background-color: #a993f7;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+    <header>
+        <div id="header-container">
+            <h1 class="title">
+                <a href="Home.html">SoundShare</a>
+            </h1>
+            <img id='logo'src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="proo.html">Profile</a></li>
+                <li><a href="Marketplace.html">Marketplace</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+        <form action="/search_results" method="post">
+            <input class="search" type="text" name="query" placeholder="Search">
+        </form>
+        <img id="profile" src={{pfp}} alt="User Profile">
+    </header>
+        
+        <main>
+            <div class="top-page">
+                <div class="float-child">
+                    <h2>New Song Releases</h2>
+                    <div class="section">
+                        <!-- Corrected the image path -->
+                        <img id="info" src="../static/download (1).png" alt="New Song">
+                        <hr>
+                        <h3>Opm Babi</h3>
+                        <button id="submit-post"><a href="Purchase.html">Buy Shares</a></button>
+                    </div>
+                </div>
+                <div class="float-child">
+                    <h2>SongShare Charts</h2>
+                    <div class="section">
+                        <canvas id="songChart"></canvas>
+                        <hr>
+                        <button id="buy"><a href="#">View Streams</a> </button>
+                    </div>
+                </div>
+            </div>
+            <div class="top-page">
+                <div class="float-child">
+                    <h2>View Artist Profiles </h2>
+                    <!-- Corrected the image paths for profiles -->
+                    <div class="post" onclick="showPopup('Bruno Mars', '$XYZ', '1000', '7', '2')"><img id="profile" src="static/Bruno Mars.jpg" alt="Bruno Mars">Bruno Mars</div>
+                    <div class="post" onclick="showPopup('Earl Sweatshirt', '$ABC', '850', '0', '0')"><img id="profile" src="static/Earl Sweatshirt.jpg" alt="Earl Sweatshirt">Earl Sweatshirt</div>
+                    <div class="post" onclick="showPopup('MIKE', '$DEF', '720', '3', '1')"><img id="profile" src="static/MIKE.jpg" alt="MIKE">MIKE</div>
+                </div>
+                <div class="float-child">
+                    <h2>Top Shares</h2>
+                    <div class="section">
+                        <div class="slideshow-container">
+                            <!-- Radio buttons for navigation -->
+                            <input type="radio" name="slider" id="slide1" checked>
+                            <input type="radio" name="slider" id="slide2">
+                            <input type="radio" name="slider" id="slide3">
+                            <input type="radio" name="slider" id="slide4">
+                            <input type="radio" name="slider" id="slide5">
+                
+                            <!-- Top Share 1 -->
+                            <div class="image_container">
+                                <img id="info" src="https://hypebeast.com/image/2025/03/05/doechii-anxiety-solo-single-coven-music-stream-1.jpg" alt="Top Share 1">
+                                <div class="overlay">
+                                    <p class="artist-name">Artist: Doechii</p>
+                                    <p class="song-name">Song: Anxiety</p>
+                                    <p class="share-amount">Shares Available: 1000</p>
+                                    <button id="buy"><a href="Purchase.html">Buy Shares</a></button>
+                                    <hr>
+                                </div>
+                            </div>
+                
+                            <!-- Top Share 2 -->
+                            <div class="image_container">
+                                <img id="info" src="https://media.pitchfork.com/photos/66f6c67d5a96fc10a4c98ae9/2:1/w_1600,c_limit/billie%20eilish%20birds%20of%20a%20feather%20video.jpg" alt="Top Share 2">
+                                <div class="overlay">
+                                    <p class="artist-name">Artist: Billie Eilish</p>
+                                    <p class="song-name">Song: Birds of a Feather</p>
+                                    <p class="share-amount">Shares Available: 500</p>
+                                    <button id="buy"><a href="Purchase.html">Buy Shares</a></button>
+                                    <hr>
+                                </div>
+                            </div>
+                
+                            <!-- Top Share 3 -->
+                            <div class="image_container">
+                                <img id="info" src="https://www.rollingstone.com/wp-content/uploads/2024/11/kendrick-lamar-surprise-album.jpg?w=1581&h=1054&crop=1" alt="Top Share 3">
+                                <div class="overlay">
+                                    <p class="artist-name">Artist: Kendrick Lamar Ft. SZA</p>
+                                    <p class="song-name">Song: Luther t</p>
+                                    <p class="share-amount">Shares Available: 200</p>
+                                    <button id="buy"><a href="Purchase.html">Buy Shares</a></button>
+                                    <hr>
+                                </div>
+                            </div>
+                
+                            <!-- Top Share 4 -->
+                            <div class="image_container">
+                                <img id="info" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Kendrick_Lamar_-_Not_Like_Us.png/250px-Kendrick_Lamar_-_Not_Like_Us.png" alt="Top Share 4">
+                                <div class="overlay">
+                                    <p class="artist-name">Artist: Kendrick Lamar</p>
+                                    <p class="song-name">Song: Not Like Us</p>
+                                    <p class="share-amount">Shares Available: 750</p>
+                                    <button id="buy"><a href="Purchase.html">Buy Shares</a></button>
+                                    <hr>
+                                </div>
+                            </div>
+                
+                            <!-- Top Share 5 -->
+                            <div class="image_container">
+                                <img id="info" src="https://images.squarespace-cdn.com/content/v1/5b0dd7581aef1d319395b854/1738701157106-JVFZJC855YQN2A6MDVJ9/unnamed+-+2025-02-04T203020.660.jpg?format=1500w" alt="Top Share 5">
+                                <div class="overlay">
+                                    <p class="artist-name">Artist: Lady Gaga</p>
+                                    <p class="song-name">Song: Abracadabra</p>
+                                    <p class="share-amount">Shares Available: 1200</p>
+                                    <button id="buy"><a href="Purchase.html">Buy Shares</a></button>
+                                    <hr>
+                                </div>
+                            </div>
+                
+                            <!-- Navigation Labels -->
+                            <div class="navigation">
+                                <label for="slide1" class="nav-btn"></label>
+                                <label for="slide2" class="nav-btn"></label>
+                                <label for="slide3" class="nav-btn"></label>
+                                <label for="slide4" class="nav-btn"></label>
+                                <label for="slide5" class="nav-btn"></label>
+                            </div>
+                        </div>
+                
+                      
+                    </div>
+                </div>
+                
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Corrected the path to the JavaScript file -->
+        <script src="/static/script.js"></script>
+    </body>
+</html>

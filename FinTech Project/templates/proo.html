@@ -1,0 +1,98 @@
+!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>SoundShare</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Corrected the path to the CSS file from templates to static -->
+        <link rel="stylesheet" href="../static/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Major+Mono+Display&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="header-container">
+            <h1 class="title">
+                <a href="Home.html">SoundShare</a>
+            </h1>
+            <img id="logo" src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="SoundShare Logo">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="proo.html">Profile</a></li>
+                <li><a href="Marketplace.html">Marketplace</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+        <form action="/search_results" method="get">
+            <input class="search" type="text" name="query" placeholder="Search">
+        </form>
+        <img id="profile" src="/static/default-profile.png" alt="User Profile">
+    </header>
+    
+    <div id="header-container">
+
+        <h1 class="title">Kendrick Lamar</h1>
+        <div class="artist-info">
+            <p><strong>Genre:</strong> Rap</p>
+            <p><strong>Bio:</strong> Kendrick Lamar Duckworth (born June 17, 1987) is an American rapper. Regarded as one of the greatest rappers of all time.</p>
+            <p><strong>Average Share Value:</strong> $560</p>
+            <p><strong>Shares Available:</strong> 1,000</p>
+            <p><strong>Top 100 Songs:</strong> HUMBLE., DNA., Alright, Money Trees, Swimming Pools (Drank)</p>
+            <p><strong>Top 200 Albums:</strong> good kid, m.A.A.d city, To Pimp a Butterfly, DAMN., Mr. Morale & the Big Steppers</p>
+        </div>
+
+        <!-- Form for posting a new song -->
+        <h2 class="title">Post a New Song</h2>
+        <form id="postSongForm">
+            <label for="title">Song Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="total_shares">Total Shares:</label>
+            <input type="number" id="total_shares" name="total_shares" required><br><br>
+
+            <label for="price_per_share">Price Per Share:</label>
+            <input type="number" step="0.01" id="price_per_share" name="price_per_share" required><br><br>
+
+            <button type="submit">Post Song</button>
+        </form>
+
+        <!-- Display success/error messages -->
+        <div id="message"></div>
+
+        <!-- Display list of songs with available shares -->
+        <h2>Available Songs</h2>
+        <div id="songsList">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Song Title</th>
+                        <th>Available Shares</th>
+                        <th>Price Per Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HUMBLE.</td>
+                        <td>200</td>
+
+                <li><a href="proo.html">Profile</a></li>                    </tr>
+c                    <tr>
+                        <td>DNA.</td>
+                        <td>150</td>
+                        <td>$12.50</td>
+                    </tr>
+                    <tr>
+                        <td>Alright</td>
+                        <td>100</td>
+                        <td>$15.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

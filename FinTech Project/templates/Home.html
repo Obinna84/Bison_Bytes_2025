@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SoundShare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <script>
+        function showPopup(artistName, shareValue, availableShares, top100, top200) {
+            const popup = document.getElementById('popup');
+            const popupContent = document.getElementById('popup-content');
+            popupContent.innerHTML = `
+                <div class="artist-info">
+                    <div class="image-wrapper" style="position: relative;">
+                        <img src="{{ url_for('static', filename='') }}${artistName}.jpg" alt="${artistName}" 
+                            style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px;">
+                        <a href="/artist/${artistName}" class="invisible-button" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></a>
+                    </div>
+                    <div>
+                        <h3>${artistName}</h3>
+                        <p>Share Value: ${shareValue}</p>
+                        <p>Shares Available: ${availableShares}</p>
+                    </div>
+                </div>
+                <h3>Total Shares:</h3>
+                <p>${top100} Top 100 Song(s) / ${top200} Top 100 Album(s)</p>
+                <div class="buttons">
+                    <button>See Charts</button>
+                    <button>See Community</button>
+                </div>`;
+
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+    <style>
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        #popup button {
+            margin-top: 10px;
+            background-color: #a993f7;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="header-container">
+            <h1 class="title">
+                <a href="Home.html">SoundShare</a>
+            </h1>
+            <img id='logo' src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Profile.html">Profile</a></li>
+                <li><a href="Marketplace.html">Marketplace</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+        <form action="/search_results" method="post">
+            <input class="search" type="text" name="query" placeholder="Search">
+        </form>
+        <img id="profile" src="{{ pfp }}" alt="User Profile">
+    </header>
+
+    <main>
+        <div class="forum">
+            <div class="float-child">
+                <h2>Recommended Artists</h2>
+                <div class="post" onclick="showPopup('Bruno Mars', '$XYZ', '1000', '7', '2')"><img id="profile" src="{{ url_for('static', filename='Bruno Mars.jpg') }}" alt="Bruno Mars">Bruno Mars</div>
+                <div class="post" onclick="showPopup('Earl Sweatshirt', '$ABC', '850', '0', '0')"><img id="profile" src="{{ url_for('static', filename='Earl Sweatshirt.jpg') }}" alt="Earl Sweatshirt">Earl Sweatshirt</div>
+                <div class="post" onclick="showPopup('MIKE', '$DEF', '720', '3', '1')"><img id="profile" src="{{ url_for('static', filename='MIKE.jpg') }}" alt="MIKE">MIKE</div>
+                <div class="post" onclick="showPopup('Solange', '$GHI', '900', '5', '3')"><img id="profile" src="https://images.squarespace-cdn.com/content/v1/5b28524d8ab72230d02aeafe/1552425314500-2QOCUMD46U1LS2CKZIVK/Solange+Knowles+When+I+Get+Home.jpg?format=1500w" alt="Solange">Solange</div>
+                <div class="post" onclick="showPopup('MIKE', '$DEF', '720', '3', '1')"><img id="profile" src="https://s3.eu-west-1.amazonaws.com/blog.mixtapemadness.com/wp-content/uploads/Jordan-Photo-1-MM-cover.jpg" alt="MIKE">Jordan Ward</div>
+            </div>
+
+            <div class="float-child">
+                <h2>Popular Post</h2>
+                <div class="post"><img id="profile" src="{{ url_for('static', filename='profile.png') }}" alt="User Profile">This new Carti album is Fye</div>
+                <div class="post"><img id="profile" src="{{ url_for('static', filename='profile.png') }}" alt="User Profile">WHEN WILL FRANK DROP!!</div>
+                <div class="post"><img id="profile" src="{{ url_for('static', filename='profile.png') }}" alt="User Profile">SWAMP IZZO</div>
+                <div class="post"><img id="profile" src="{{ url_for('static', filename='profile.png') }}" alt="User Profile">★★★★★ star review for Thriller</div>
+                <div class="post"><img id="profile" src="{{ url_for('static', filename='profile.png') }}" alt="User Profile">Just got Kendrick Tickets!!</div>
+            </div>
+
+            <div class="float-child">
+                <h2>Song of the Week</h2>
+                <div class="section">
+                    <img id="info" src="{{ url_for('static', filename='download (1).png') }}" alt="Song of the Week">
+                    <hr>
+                    <h3 style="color: #a993f7;">EVIL JORDAN</h3>
+                    <button id="submit-post"><a href="Purchase.html">Buy Shares</a></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="top-page">
+            <div class="float-child">
+                <h2>News</h2>
+                <div class="section">
+                    <img id="info" src="{{ url_for('static', filename='download (1).png') }}" alt="News Image">
+                    <p>Playboi Carti breaks records by being the first HipHop artist to have 30 songs on Billboards Hot 100</p>
+                </div>
+            </div>
+            <div class="float-child">
+                <h2><a id='heading' href="Marketplace.html">Marketplace</a></h2>
+                <div class="section">
+                    <h3>Trending Artist</h3>
+                    <div class="list"><span class='bold'>1#</span> Lady Gaga <img class="up" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Eo_circle_green_arrow-up.svg" alt="Trending Up"></div>
+                    <div class="list"><span class='bold'>2#</span> Kendrick Lamar <img class="down" src="{{ url_for('static', filename='down.png') }}" alt="Trending Down"></div>
+                    <div class="list"><span class='bold'>3#</span> Morgan Wallen <img class="down" src="{{ url_for('static', filename='down.png') }}" alt="Trending Down"></div>
+                    <div class="list"><span class='bold'>4#</span> Sabrina Carpenter <img class="down" src="{{ url_for('static', filename='minus.png') }}" alt="No Change"></div>
+                    <div class="list"><span class="bold">5#</span> SZA <img class="down" src="{{ url_for('static', filename='minus.png') }}" alt="No Change"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="popup">
+            <div id="popup-content"></div>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </main>
+</body>
+</html>

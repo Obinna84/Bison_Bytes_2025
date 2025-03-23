@@ -1,0 +1,18 @@
+Who Can Use the Marketplace: Listeners/Investors/Arists/Labels
+
+Artists:
+- Must Provide:
+    * Existing splits documentation
+        $ Allows us to evaluate how much equity they have avaliable for purchase
+        $ Ex: If artists owns 80% of their song, total shares caps out at 80%, so if they're offering
+          shares at 5% per, then total stock maxes out at 16
+    * Payout access
+        $ We need to be able to ensure the artist is providing all information on payouts they recieve
+          from song
+        $ We also need access to the artist bank account info to be able to recoup money after they've
+          been payed out. (EX:(1) Spotify pays artist.(2) Money goes to their account.(3) We take the 
+          percentage of shares they've sold.(4) We distribute shares to song investors at the percentage 
+          of the share(s) they purchased)
+- Uses:
+    * Sell shares of song royalities to listeners/investors/Labels
+    * 
