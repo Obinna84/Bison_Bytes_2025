@@ -13,21 +13,22 @@
     </head>
     <body>
         <header>
-            <h1 class="title">
-                <a href="Home.html">SoundShare</a>
-            </h1>
-        
+            <div id="header-container">
+                <h1 class="title">
+                    <a href="Home.html">SoundShare</a>
+                </h1>
+                <img id='logo'src="../static/logo.PNG" alt="">
+            </div>
             <nav>
                 <ul>
                     <li><a href="Home.html">Home</a></li>
                     <li><a>Browse</a></li>
-                    <li><a>Marketplace</a></li>
-                    <li><a>Community</a></li>
+                    <li><a href="Marketplace.html">Marketplace</a></li>
+                    <li><a href="Community.html">Community</a></li>
                 </ul>
             </nav>
             <input class="search" type="text" placeholder="Search">
-            <!-- Corrected the image path to point to the static folder -->
-            <img id="profile" src="../static/profile.png" alt="User Profile"> 
+            <a href="login.html"><img id="profile" src="../static/profile.png" alt="User Profile"> </a>
         </header>
         
         <main>
@@ -39,7 +40,7 @@
                         <img id="info" src="../static/download (1).png" alt="New Song">
                         <hr>
                         <h3>Opm Babi</h3>
-                        <button><a href="#">Buy Shares</a></button>
+                        <button id="buy"><a href="#">Buy Shares</a></button>
                     </div>
                 </div>
                 <div class="float-child">
@@ -47,7 +48,7 @@
                     <div class="section">
                         <canvas id="songChart"></canvas>
                         <hr>
-                        <button><a href="#">View Streams</a> </button>
+                        <button id="buy"><a href="#">View Streams</a> </button>
                     </div>
                 </div>
             </div>
@@ -66,7 +67,7 @@
                         <img id="info" src="../static/download (1).png" alt="Song of the Week">
                         <hr>
                         <h3>EVIL JORDAN</h3>
-                        <button><a href="#">Buy Shares</a></button>
+                        <button id="buy"><a href="#">Buy Shares</a></button>
                     </div>
                 </div>
             </div>
