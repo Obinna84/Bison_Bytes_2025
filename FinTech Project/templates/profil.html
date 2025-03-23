@@ -33,6 +33,11 @@
                 text-decoration: none;
             }
 
+            #logo {
+                width: 100px; /* Adjust the width to make the logo smaller */
+                height: auto;
+            }
+
             nav ul {
                 list-style: none;
                 padding: 0;
@@ -170,7 +175,7 @@
         <nav>
             <ul>
                 <li><a href="Home.html">Home</a></li>
-                <li><a href="Profile.html">Profile</a></li>
+                <li><a href="profil.html">Profile</a></li>
                 <li><a href="Marketplace.html">Marketplace</a></li>
                 <li><a href="community.html">Community</a></li>
             </ul>
@@ -186,12 +191,12 @@
             <h1 class="title">Kendrick Lamar</h1>
             <div class="profile-container">
                 <div class="profile-info">
-                    <img class="profile-image" src="/static/kennykills.jpg" alt="Kendrick Lamar">
+                    <img class="profile-image" src="https://www.rollingstone.com/wp-content/uploads/2024/11/kendrick-lamar-surprise-album.jpg?w=1581&h=1054&crop=1" alt="Kendrick Lamar">
                     <div class="section">
                         <p><strong>Genre:</strong> Rap</p>
-                        <p><strong>Bio:</strong> Kendrick Lamar Duckworth (born June 17, 1987) is an American rapper. Regarded as one of the greatest rappers of all time.</p>
-                        <p><strong>Average Share Value:</strong> $560</p>
-                        <p><strong>Shares Available:</strong> 1,000</p>
+                        <p><strong>Bio:</strong> Kendrick Lamar Duckworth is an American rapper. Regarded as one of the greatest rappers of all time.</p>
+                        <p><strong>Average Share Value:</strong> <span id="avg-share-value">$560</span></p>
+                        <p><strong>Shares Available:</strong> <span id="total-shares">1,000</span></p>
                         <p><strong>Top 100 Songs:</strong> HUMBLE., DNA., Alright, Money Trees, Swimming Pools (Drank)</p>
                         <p><strong>Top 200 Albums:</strong> good kid, m.A.A.d city, To Pimp a Butterfly, DAMN., Mr. Morale & the Big Steppers</p>
                     </div>
@@ -256,8 +261,8 @@
 
             const data = {
                 title: document.getElementById('title').value,
-                total_shares: document.getElementById('total_shares').value,
-                price_per_share: document.getElementById('price_per_share').value
+                total_shares: parseInt(document.getElementById('total_shares').value),
+                price_per_share: parseFloat(document.getElementById('price_per_share').value)
             };
 
             // Add the new song to the table immediately
@@ -266,9 +271,12 @@
             newRow.innerHTML = `
                 <td>${data.title}</td>
                 <td>${data.total_shares}</td>
-                <td>$${parseFloat(data.price_per_share).toFixed(2)}</td>
+                <td>$${data.price_per_share.toFixed(2)}</td>
             `;
             songsList.appendChild(newRow);
+
+            // Update average share value and total shares
+            updateShareInfo();
 
             // Clear the form
             document.getElementById('postSongForm').reset();
@@ -283,6 +291,24 @@
                 messageDiv.remove();
             }, 3000);
         });
+
+        function updateShareInfo() {
+            const rows = document.querySelectorAll('#songsList tbody tr');
+            let totalShares = 0;
+            let totalValue = 0;
+
+            rows.forEach(row => {
+                const shares = parseInt(row.cells[1].innerText);
+                const price = parseFloat(row.cells[2].innerText.replace('$', ''));
+                totalShares += shares;
+                totalValue += shares * price;
+            });
+
+            const avgShareValue = totalValue / totalShares;
+
+            document.getElementById('total-shares').innerText = totalShares;
+            document.getElementById('avg-share-value').innerText = `$${avgShareValue.toFixed(2)}`;
+        }
     </script>
 </body>
 </html>

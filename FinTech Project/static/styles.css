@@ -31,8 +31,7 @@ body {
     height: 20%;
 }
 
-#artist-producer-info-form, #investor-listener-info-form {
-    display: block;
+#artist-producer-info-form, #investor-listener-info-form, #post-song-form{
     justify-content: center;
     align-items: center;
     flex-direction: column;

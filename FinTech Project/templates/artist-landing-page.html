@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ artist_name }} - SoundShare</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
@@ -11,59 +12,71 @@
             <h1 class="title">
                 <a href="Home.html">SoundShare</a>
             </h1>
-            <img id='logo'src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="">
+            <img id="logo" src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="SoundShare Logo">
         </div>
 
         <nav>
             <ul>
                 <li><a href="Home.html">Home</a></li>
-                <li><a href="Profile.html">Profile</a></li>
+                <li><a href="profil.html">Profile</a></li>
                 <li><a href="Marketplace.html">Marketplace</a></li>
                 <li><a href="community.html">Community</a></li>
             </ul>
         </nav>
-        <form action="/search_results" method="post">
+
+        <form class="search-form" action="/search_results" method="post">
             <input class="search" type="text" name="query" placeholder="Search">
         </form>
-        <img id="profile" src={{pfp}} alt="User Profile">
+        <img id="profile" src="{{pfp}}" alt="User Profile">
     </header>
-    
-    <div class="container" style="color: white;">
-        <h1>{{ artist_name }}</h1>
-        <div class="artist-info">
-            <p><strong>Genre:</strong> {{ genre }}</p>
-            <p><strong>Bio:</strong> {{ bio }}</p>
-            <p><strong>Share Value:</strong> {{ share_value }}</p>
-            <p><strong>Shares Available:</strong> {{ available_shares }}</p>
-            <p><strong>Top 100 Songs:</strong> {{ top100 }}</p>
-            <p><strong>Top 200 Albums:</strong> {{ top200 }}</p>
-        </div>
 
-        <!-- Form for posting a new song -->
-        <h2>Post a New Song</h2>
-        <form id="postSongForm">
-            <label for="title">Song Title:</label>
-            <input type="text" id="title" name="title" required><br><br>
+    <main class="container">
+        <section class="artist-details">
+            <h1>{{ artist_name }}</h1>
+            <div class="artist-info">
+                <p><strong>Genre:</strong> {{ genre }}</p>
+                <p><strong>Bio:</strong> {{ bio }}</p>
+                <p><strong>Share Value:</strong> {{ share_value }}</p>
+                <p><strong>Shares Available:</strong> {{ available_shares }}</p>
+                <p><strong>Top 100 Songs:</strong> {{ top100 }}</p>
+                <p><strong>Top 200 Albums:</strong> {{ top200 }}</p>
+            </div>
+        </section>
 
-            <label for="total_shares">Total Shares:</label>
-            <input type="number" id="total_shares" name="total_shares" required><br><br>
+        <section class="post-song">
+            <h2>Post a New Song</h2>
+            <form id="postSongForm" class="form">
+                <div class="form-group">
+                    <label for="title">Song Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
 
-            <label for="price_per_share">Price Per Share:</label>
-            <input type="number" step="0.01" id="price_per_share" name="price_per_share" required><br><br>
+                <div class="form-group">
+                    <label for="total_shares">Total Shares:</label>
+                    <input type="number" id="total_shares" name="total_shares" required>
+                </div>
 
-            <button type="submit">Post Song</button>
-        </form>
+                <div class="form-group">
+                    <label for="price_per_share">Price Per Share:</label>
+                    <input type="number" step="0.01" id="price_per_share" name="price_per_share" required>
+                </div>
 
-        <!-- Display success/error messages -->
-        <div id="message"></div>
+                <button type="submit" class="btn">Post Song</button>
+            </form>
+            <div id="message" class="message"></div>
+        </section>
 
-        <!-- Display list of songs with available shares -->
-        <h2>Available Songs</h2>
-        <div id="songsList"></div>
-    </div>
-    
+        <section class="available-songs">
+            <h2>Available Songs</h2>
+            <div id="songsList" class="songs-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 SoundShare. All rights reserved.</p>
+    </footer>
+
     <script>
-        // Handle form submission
         document.getElementById('postSongForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -73,7 +86,6 @@
                 price_per_share: document.getElementById('price_per_share').value
             };
 
-            // Send a POST request to the backend
             fetch('/api/list_share', {
                 method: 'POST',
                 headers: {
@@ -83,14 +95,12 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Display success or error message
                 const messageDiv = document.getElementById('message');
                 if (data.message) {
-                    messageDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
-                    // Refresh the list of songs after posting a new song
+                    messageDiv.innerHTML = `<p class="success">${data.message}</p>`;
                     fetchSongs();
                 } else {
-                    messageDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                    messageDiv.innerHTML = `<p class="error">${data.error}</p>`;
                 }
             })
             .catch(error => {
@@ -98,21 +108,20 @@
             });
         });
 
-        // Fetch and display the list of songs
         function fetchSongs() {
             fetch('/api/songs')
                 .then(response => response.json())
                 .then(songs => {
                     const songsListDiv = document.getElementById('songsList');
-                    songsListDiv.innerHTML = '';  // Clear the list
+                    songsListDiv.innerHTML = '';
 
                     if (songs.length === 0) {
                         songsListDiv.innerHTML = '<p>No songs available.</p>';
                         return;
                     }
 
-                    // Create a table to display the songs
                     const table = document.createElement('table');
+                    table.classList.add('songs-table');
                     table.innerHTML = `
                         <thead>
                             <tr>
@@ -139,7 +148,6 @@
                 });
         }
 
-        // Fetch songs when the page loads
         fetchSongs();
     </script>
 </body>
