@@ -10,63 +10,86 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Major+Mono+Display&display=swap" rel="stylesheet">
     
-    
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            populateArtistsToScreen('image_container');
+        });
+
+        function populateArtistsToScreen(id) {
+            let imageUrls = '{{ recommended_artists_images|safe }}';
+            try {
+                imageUrls = JSON.parse(imageUrls);
+                let section = document.getElementById(id);
+
+                imageUrls.forEach(url => {
+                    let img = document.createElement("img");
+                    img.setAttribute("src", url);
+                    img.classList.add("artist-image");
+                    section.appendChild(img);
+                });
+            } catch (error) {
+                console.error("Error parsing artist images:", error);
+            }
+        }
+    </script>
 </head>
 
 <body>
     <header>
-        <div id="header-container">
-            <h1 class="title">
-                <a href="Home.html">SoundShare</a>
-            </h1>
-            <img id='logo'src="https://i.postimg.cc/y8z7GhF3/thumbnail-IMG-0218.png" alt="">
-        </div>
+        <h1 class="title">
+            <a href="Home.html">SoundShare</a>
+        </h1>
 
         <nav>
             <ul>
                 <li><a href="Home.html">Home</a></li>
-                <li><a href="Profile.html">Profile</a></li>
+                <li><a href="#">Browse</a></li>
                 <li><a href="Marketplace.html">Marketplace</a></li>
-                <li><a href="community.html">Community</a></li>
+                <li><a href="#">Community</a></li>
             </ul>
         </nav>
+
         <form action="/search_results" method="post">
             <input class="search" type="text" name="query" placeholder="Search">
         </form>
-        <img id="profile" src={{pfp}} alt="User Profile">
+        
+        <img id="profile" src="{{ pfp }}" alt="User Profile">
     </header>
 
-    <main>
-        <section class="artist-info-top-tracks" style="margin-top: 100px;">
-            <div class="artist-info" style="float: left; width: 50%;">
-            <h4>{{ artist_name }}</h4>
-            {% if artist_image_url %}
-            <img src="{{ artist_image_url }}" alt="{{ artist_name }}" class="artist-main-img">
-            {% else %}
-            <p>No artist image available.</p>
-            {% endif %}
-            </div>
+    <main style="margin-top: 100px; display: flex; justify-content: space-between; align-items: flex-start; padding: 0 50px;">
+        <div class="artist-column" style="width: 45%; text-align: center;">
+            <section class="artist-info">
+                <h4 style="margin-bottom: 20px;">{{ artist_name }}</h4>
+                {% if artist_image_url %}
+                    <img src="{{ artist_image_url }}" alt="{{ artist_name }}" class="artist-main-img" style="width: 100%; max-width: 300px; border-radius: 10px;">
+                {% else %}
+                    <p>No artist image available.</p>
+                {% endif %}
+            </section>
+        </div>
 
-            <div class="top-tracks" style="float: right; width: 50%;">
-            <h4>Top Tracks</h4>
-            <ul style="list-style-type: none; padding: 0;">
-            {% for track in top_tracks %}
-            <li><span style="color: white;">{{ track }}</span></li>
-            {% endfor %}
-            </ul>
-            </div>
-        </section>
-        <div style="clear: both;"></div>
+        <div class="top-tracks-column" style="width: 45%;">
+            <section class="top-tracks">
+                <h4 style="margin-bottom: 20px;">Top Tracks</h4>
+                <ul style="list-style-type: none; padding: 0; color: white;">
+                    {% for track in top_tracks %}
+                    <li style="margin-bottom: 10px;">{{ track }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </main>
 
         <section class="recommended-artists">
-            <h3>Recommended Artists</h3>
+            <h3 style="text-align: center;">Recommended Artists</h3>
             <ul id="image_container">
-            {% for artist, artist_image in recommended_artists_data %}
-                <li>
-                <img src="{{ artist_image }}" alt="{{ artist }}" class="recommended-img">
-                <span>{{ artist }}</span>
-                </li>
-            {% endfor %}
+            {% for artist, image in zipped_artists %}
+        <div style="text-align: center;">
+        <img src="{{ image }}" alt="{{ artist }} profile picture" style="width: 100px; height: 100px; border-radius: 50%;">
+        <p style="color: white; margin-top: 5px;">{{ artist }}</p>
+        </div>
+    {% endfor %}
+
             </ul>
         </section>        
     </main>
