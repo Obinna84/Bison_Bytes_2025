@@ -223,6 +223,7 @@ button {
 }
 button a{
     text-decoration: none;
+    color: #1b1b32CC;
 }
 /* Hover Effect */
 button:hover {
