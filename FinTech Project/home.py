@@ -37,9 +37,10 @@ def send_to_homepage():
 def load_marketplace_page():
     return render_template("Marketplace.html", pfp=profile_picture)
 
-@app.route("/Profile.html")
+@app.route("/profil.html")
 def load_profile_page():
-    return render_template("pr.html", pfp=profile_picture)
+    return render_template("profil.html", pfp=profile_picture)
+
 
 @app.route("/Home.html")
 def load_home_page():
@@ -47,13 +48,24 @@ def load_home_page():
 
 @app.route("/search_results", methods=['GET', 'POST'])
 def load_search_results():
-    # Placeholder data for testing
-    info = {
-        "recommended_artists": ["Artist 1", "Artist 2"],
-        "recommended_artists_images": ["image1.jpg", "image2.jpg"]
-    }
-    recommended_artists_data = zip(info["recommended_artists"], info["recommended_artists_images"])
-    return render_template("search_result.html", pfp=profile_picture, recommended_artists_data=recommended_artists_data, **info)
+    search_term = request.form
+    search_query = search_term["query"]
+    test_api_object = api.SpotifyAPI()
+    info = test_api_object.return_useful_info(search_query)
+
+    # Extract relevant data
+    recommended_artists = info.get("recommended_artists", [])
+    recommended_artists_images = info.get("recommended_artists_images", [])
+
+    # Zip artists with their images
+    zipped_artists = zip(recommended_artists, recommended_artists_images)
+
+    return render_template(
+        "search_result.html",
+        pfp=profile_picture,
+        zipped_artists=zipped_artists,
+        **info
+    )
 
 # Sample data for demonstration
 artist_data = {
