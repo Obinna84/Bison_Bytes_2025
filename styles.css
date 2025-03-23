@@ -59,11 +59,6 @@ body {
     margin-top: 5px; /* Add spacing between the two lines of text */
 }
 
-/* Prevent the form from being submitted when clicking buttons */
-button {
-    pointer-events: none;
-}
-
 /* Make sure buttons are centered properly in smaller screens */
 @media (max-width: 768px) {
     #user-type-container {
