@@ -6,6 +6,70 @@ body {
     padding: 0;
     color: black;
 }
+/* Form Styles */
+#user-type-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 100px; /* Adjust based on your layout */
+}
+
+/* User Type Container */
+#user-type-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px;
+    gap: 20px;
+}
+
+/* Button Styles */
+.user-type {
+    background-color: #a993f7; /* Light purple background */
+    color: white; /* White text */
+    font-size: 1.2rem; /* Make text a bit larger */
+    padding: 20px 30px;
+    border: none; /* Remove default button border */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center;
+    cursor: pointer;
+    width: 120px; /* Set a fixed width for the buttons */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Hover Effect */
+.user-type:hover {
+    background-color: #8b7be5; /* Slightly darker purple */
+    transform: scale(1.05); /* Slight enlargement on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* More shadow depth */
+}
+
+/* Active (Click) Effect */
+.user-type:active {
+    background-color: #7763d1; /* Darker purple when clicked */
+    transform: scale(0.98); /* Slight press effect */
+}
+
+/* Button Text */
+.user-type br {
+    display: block; /* Make text appear on two lines */
+    margin-top: 5px; /* Add spacing between the two lines of text */
+}
+
+/* Prevent the form from being submitted when clicking buttons */
+button {
+    pointer-events: none;
+}
+
+/* Make sure buttons are centered properly in smaller screens */
+@media (max-width: 768px) {
+    #user-type-container {
+        flex-direction: column; /* Stack the buttons vertically on smaller screens */
+    }
+}
 
 /* Header */
 header {
@@ -34,7 +98,7 @@ h1 {
 }
 
 /* Profile Image */
-#profile {
+#profile, #logo {
     width: 50px;
     height: 50px;
     object-fit: cover;
@@ -43,6 +107,9 @@ h1 {
     padding-right:20px;
 }
 
+#profile header{
+    padding-right: 30px;
+}
 
 /* Navigation */
 nav {
@@ -207,8 +274,14 @@ main {
     text-decoration: none;
     color:inherit
 }
+#header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
 /* Buy Button */
-button {
+#buy {
     background-color: #a993f7; /* Soft purple background */
     color: white; /* White text */
     font-size: 1rem; /* Readable font size */
