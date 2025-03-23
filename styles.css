@@ -59,6 +59,8 @@ body {
     margin-top: 5px; /* Add spacing between the two lines of text */
 }
 
+/* Prevent the form from being submitted when clicking buttons */
+
 /* Make sure buttons are centered properly in smaller screens */
 @media (max-width: 768px) {
     #user-type-container {
@@ -187,6 +189,7 @@ main {
     padding:20px;
     display: flex;
     justify-content: space-between;
+    
 
 }
 
@@ -206,7 +209,21 @@ main {
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scale and shadow */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
+
+/* Style for Textarea */
+textarea {
+    width: 100%; /* Ensures the textarea fills the section */
+    resize: vertical; /* Allows vertical resizing but keeps it within the section */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Ensures padding does not affect width calculation */
+}
+
 
 /* Hover Effect */
 .section:hover {
@@ -219,7 +236,12 @@ main {
     height: auto;
     border-radius: 5px;
     margin-bottom: 15px;
+    
+    display: block;  /* Ensures the image is treated as a block element */
+    margin-left: auto;  /* Centers the image horizontally */
+    margin-right: auto;  /* Centers the image horizontally */
 }
+
 .list:hover {
     transform: scale(1.05); /* Slightly enlarges the list item */
     background-color: #f0f0f0; /* Light background color when hovered */
@@ -251,20 +273,90 @@ main {
     font-weight: 200;
 }
 
-.post{
+/* Container for popular posts */
+#popular-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between posts */
+    overflow: hidden; /* Hide overflow during transitions */
+}
+
+/* Post styling */
+.post {
     background-color: white;
     border-radius: 10px;
     display: flex;
-    align-items:center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 15px;
-    padding: 5px;
+    align-items: center;
+    padding: 10px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 1; /* Default opacity */
+    transform: translateY(0); /* Default position */
+    margin-bottom: 5px;
 }
 
-.post:hover{
+/* Profile image styling */
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Fade-in animation */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-out animation */
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.post:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
+
+.post-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-text {
+    font-size: 1rem;
+    color: #333;
+}
+
 #heading{
     text-decoration: none;
     color:inherit
@@ -276,7 +368,7 @@ main {
     margin-bottom: 10px;
 }
 /* Buy Button */
-#buy {
+#buy , #submit-post{
     background-color: #a993f7; /* Soft purple background */
     color: white; /* White text */
     font-size: 1rem; /* Readable font size */
@@ -288,6 +380,7 @@ main {
     transition: all 0.3s ease-in-out; /* Smooth transition */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
     width: 100%;
+    margin-top: 10px;
 }
 button a{
     text-decoration: none;
