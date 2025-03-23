@@ -4,27 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 
 <body>
     <header>
-        <h1>login page</h1>
+        <div id="header-container">
+            <h1 class="title">
+                <a href="Home.html">SoundShare</a>
+            </h1>
+            <img id='logo'src="../static/logo.PNG" alt="">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a>Browse</a></li>
+                <li><a href="Marketplace.html">Marketplace</a></li>
+                <li><a href="Community.html">Community</a></li>
+            </ul>
+        </nav>
+        <input class="search" type="text" placeholder="Search">
+        <a href="login.html"><img id="profile" src="../static/profile.png" alt="User Profile"> </a>
     </header>
     <main>
         <form action="/user-type-selected" method="post" id="user-type-form">
             <div id="user-type-container">
                 <input type="hidden" name="user-type" id="user-type-input">
-                    <button onclick="setUserType('artist/producer')" class="user-type">
-                        artist<br>producer
-                    </button>
-                    <button onclick="setUserType('fan/investor')" class="user-type">
-                        fan<br>investor
-                    </button>
-                    <button onclick="setUserType('guest')" class="user-type">
-                        guest
-                    </button>
-                </input>
+                <button type="button" onclick="setUserType('artist/producer')" class="user-type">
+                    artist<br>producer
+                </button>
+                <button type="button" onclick="setUserType('fan/investor')" class="user-type">
+                    fan<br>investor
+                </button>
+                <button type="button" onclick="setUserType('guest')" class="user-type">
+                    guest
+                </button>
             </div>
         </form>
         <script>
